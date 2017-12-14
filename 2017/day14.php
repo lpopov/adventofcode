@@ -55,27 +55,17 @@ class Day14 {
 	}
 	
 	private function markRegion($regionNumber, $row, $column) {
-		if($this->grid[$row][$column] != '#') {
+		if(!isset($this->grid[$row][$column]) 
+			|| $this->grid[$row][$column] != '#') {
 			return false;
 		}
 		
 		$this->grid[$row][$column] = $regionNumber;
 		
-		if(isset($this->grid[$row][$column + 1])) {
-			$this->markRegion($regionNumber, $row, $column + 1);
-		}
-		
-		if(isset($this->grid[$row][$column - 1])) {
-			$this->markRegion($regionNumber, $row, $column - 1);
-		}
-		
-		if(isset($this->grid[$row + 1][$column])) {
-			$this->markRegion($regionNumber, $row + 1, $column);
-		}
-		
-		if(isset($this->grid[$row - 1][$column])) {
-			$this->markRegion($regionNumber, $row - 1, $column);
-		}
+		$this->markRegion($regionNumber, $row, $column + 1);
+		$this->markRegion($regionNumber, $row, $column - 1);
+		$this->markRegion($regionNumber, $row + 1, $column);
+		$this->markRegion($regionNumber, $row - 1, $column);
 		
 		return true;
 	}
@@ -97,7 +87,8 @@ $inputs = [
 foreach($inputs as $input) {
 	$day = new Day14($input);
 	$day->run();
-	echo "Input: \n" . $input . "\n";
+	echo "Input: " . $input . "\n";
 	echo "Used squares: " . $day->getUsedSquares() . "\n";
 	echo "Regions: " . $day->getRegions() . "\n";
+	echo "-----------\n";
 }
