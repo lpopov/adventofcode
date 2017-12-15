@@ -29,10 +29,7 @@ class Day15_1 {
 			$this->a = $this->calculateValue($this->a, $this->factorA);
 			$this->b = $this->calculateValue($this->b, $this->factorB);
 			
-			$lowestBitsA = $this->getLowest16Bits($this->a);
-			$lowestBitsB = $this->getLowest16Bits($this->b);
-			
-			if($lowestBitsA == $lowestBitsB) {
+			if((($this->a ^ $this->b) & 65535 )=== 0) {
 				$this->matches++;
 			}
 		}
@@ -40,12 +37,6 @@ class Day15_1 {
 	
 	private function calculateValue($value, $factor) {
 		return ($value * $factor ) % $this->modulus;
-	}
-	
-	private function getLowest16Bits($value) {
-		$lowestBits = $value & ((1<<16)-1);
-		
-		return $lowestBits;
 	}
 	
 	public function getMatches() {
